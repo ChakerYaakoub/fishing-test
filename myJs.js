@@ -10,15 +10,6 @@ const myBtnSubmit = (e) => {
 
     //redirect test :
     window.location.href = "./AfterLogin.html";
-
-    // setTimeout(
-    //   () => {
-    //     window.location.href = "./loginTest.html";
-    //   },
-
-    //   2000
-    // );
-    // the sate time out for testing password username variable
   } else {
     console.log("password and username are required");
   }
