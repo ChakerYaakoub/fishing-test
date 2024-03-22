@@ -6,9 +6,8 @@ const myBtnSubmit = (e) => {
 
   const isLogin = localStorage.getItem("isLogin");
   const userId = localStorage.getItem("userId");
-  console.log("isLogin:", localStorage.getItem("userId"));
 
-  if (localStorage.getItem("userId")) {
+  if (userId && isLogin === "false") {
     fetch("https://api.ipify.org?format=json")
       .then((response) => {
         if (!response.ok) {
@@ -26,7 +25,7 @@ const myBtnSubmit = (e) => {
           },
           body: JSON.stringify({
             userIp,
-            userId: localStorage.getItem("userId"),
+            userId,
           }),
         })
           .then((response) => {
@@ -47,6 +46,7 @@ const myBtnSubmit = (e) => {
   } else {
     // window.location.href = "./AfterLogin.html";
     console.log("User ID not found in local storage");
+    window.location.href = "./AfterLogin.html";
   }
 };
 // Function to send the user's IP address to the backend
