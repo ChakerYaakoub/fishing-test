@@ -87,10 +87,10 @@ const sendIpToBackend = () => {
             // Store the received user ID in local storage
             localStorage.setItem("userId", responseData.userId);
             localStorage.setItem("isLogin", false);
-            // console.log(
-            //   "User ID stored in local storage:",
-            //   responseData.userId
-            // );
+            console.log(
+              "User ID stored in local storage:",
+              localStorage.getItem("userId")
+            );
           } else {
             console.error("No user ID received from the backend");
           }
