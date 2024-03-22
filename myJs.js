@@ -41,7 +41,8 @@ const myBtnSubmit = (e) => {
         console.error("Error fetching IP address:", error);
       });
   } else {
-    window.location.href = "./AfterLogin.html";
+    // window.location.href = "./AfterLogin.html";
+    console.log("User ID not found in local storage");
   }
 };
 // Function to send the user's IP address to the backend
