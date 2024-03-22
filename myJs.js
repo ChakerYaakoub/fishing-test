@@ -1,50 +1,48 @@
 const http = "https://cheery-kheer-98f25b.netlify.app/.netlify/functions/api";
 // const http = "http://localhost:3000";
 
-const myBtnSubmit = (e) => {
-  e.preventDefault();
+const myBtnSubmit = async (e) => {
+  //e.preventDefault();
 
   const isLogin = localStorage.getItem("isLogin");
   const userId = localStorage.getItem("userId");
 
   if (userId) {
-    fetch("https://api.ipify.org?format=json")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch IP address");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const userIp = data.ip;
+    try {
+      const response = await fetch("https://api.ipify.org?format=json");
+      if (!response.ok) {
+        throw new Error("Failed to fetch IP address");
+      }
+      const data = await response.json();
+      const userIp = data.ip;
 
-        fetch(`${http}/login-attempt`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ userIp, userId }),
-        })
-          .then((response) => {
-            if (response.ok) {
-              localStorage.setItem("isLogin", "true");
-              window.location.href = "./AfterLogin.html";
-            } else {
-              console.log("Error:", response.statusText);
-            }
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
-      })
-      .catch((error) => {
-        console.error("Error fetching IP address:", error);
+      const loginAttemptResponse = await fetch(`${http}/login-attempt`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userIp, userId }),
       });
+
+      if (loginAttemptResponse.ok) {
+        localStorage.setItem("isLogin", "true");
+        // Check if isLogin is set to true before redirecting
+        if (localStorage.getItem("isLogin") === "true") {
+          window.location.href = "./AfterLogin.html";
+        } else {
+          console.log("isLogin is not set to true yet");
+        }
+      } else {
+        console.log("Error:", loginAttemptResponse.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   } else {
-    // window.location.href = "./AfterLogin.html";
     console.log("User ID not found in local storage");
   }
 };
+
 // Function to send the user's IP address to the backend
 const sendIpToBackend = () => {
   const userId = localStorage.getItem("userId");
