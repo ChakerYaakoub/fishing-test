@@ -1,5 +1,5 @@
-// const http = "https://cheery-kheer-98f25b.netlify.app/.netlify/functions/api";
-const http = "http://localhost:3000";
+const http = "https://cheery-kheer-98f25b.netlify.app/.netlify/functions/api";
+// const http = "http://localhost:3000";
 
 const myBtnSubmit = (e) => {
   e.preventDefault(); // To prevent the default button behavior
