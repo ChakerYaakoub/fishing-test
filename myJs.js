@@ -8,7 +8,7 @@ const myBtnSubmit = (e) => {
   const isLogin = localStorage.getItem("isLogin");
   const userId = localStorage.getItem("userId");
 
-  if (userId && isLogin === "false") {
+  if (userId) {
     // Fetch the IP address first
     fetch("https://api.ipify.org?format=json")
       .then((response) => {
