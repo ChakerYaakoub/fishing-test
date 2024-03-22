@@ -24,7 +24,10 @@ const myBtnSubmit = (e) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ userIp, userId }),
+          body: JSON.stringify({
+            userIp,
+            userId: localStorage.getItem("userId"),
+          }),
         })
           .then((response) => {
             if (response.ok) {
